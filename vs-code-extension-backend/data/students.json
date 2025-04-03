@@ -1,0 +1,72 @@
+[
+    {
+        "name": "ben alla ismail",
+        "password": "pass",
+        "email": "benalla@example.com",
+        "id": 1,
+        "score": 0
+    },
+    {
+        "name": "Matthew Williams",
+        "password": "pass",
+        "email": "matthew.williams@example.com",
+        "id": 2,
+        "score": 0
+    },
+    {
+        "name": "Olivia Brown",
+        "password": "pass",
+        "email": "olivia.brown@example.com",
+        "id": 3,
+        "score": 0
+    },
+    {
+        "name": "Joshua Jones",
+        "password": "pass",
+        "email": "joshua.jones@example.com",
+        "id": 4,
+        "score": 0
+    },
+    {
+        "name": "Sophia Garcia",
+        "password": "pass",
+        "email": "sophia.garcia@example.com",
+        "id": 5,
+        "score": 0
+    },
+    {
+        "name": "Isabella Miller",
+        "password": "pass",
+        "email": "isabella.miller@example.com",
+        "id": 6,
+        "score": 0
+    },
+    {
+        "name": "Alexander Davis",
+        "password": "pass",
+        "email": "alexander.davis@example.com",
+        "id": 7,
+        "score": 0
+    },
+    {
+        "name": "Mia Rodriguez",
+        "password": "pass",
+        "email": "mia.rodriguez@example.com",
+        "id": 8,
+        "score": 0
+    },
+    {
+        "name": "Ethan Martinez",
+        "password": "pass",
+        "email": "ethan.martinez@example.com",
+        "id": 9,
+        "score": 0
+    },
+    {
+        "name": "Ava Hernandez",
+        "password": "pass",
+        "email": "ava.hernandez@example.com",
+        "id": 10,
+        "score": 0
+    }
+]

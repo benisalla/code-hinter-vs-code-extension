@@ -1,0 +1,26 @@
+[
+    {
+        "code_prof": "class Calculator:\n    def add(self, a, b):\n        return a + b\n\ncalc = Calculator()\nprint(calc.add(5, 3))",
+        "concepts": "1. Class creation\n2. Method definition\n3. Object instantiation and method calling",
+        "id_prof": 1,
+        "id": 1
+    },
+    {
+        "code_prof": "class Animal:\n\n    def (self, species):\n        self.species = species\n        Animal.count += 1\n\n    def get_species(self):\n        return self.species\n\nanimal = Animal('Cat')\nprint(animal.get_species())",
+        "concepts": "1. Syntax in method definitions (constructor should be __init__)\n2. Importance of proper method naming\n3. Usage of class variables",
+        "id_prof": 1,
+        "id": 2
+    },
+    {
+        "code_prof": "def fibonacci(n):\n    a, b = 0, 1\n    sequence = []\n    for _ in range(n):\n        sequence.append(a)\n        a, b = b, a + b\n    return sequence\n\nprint(fibonacci(10))",
+        "concepts": "1. Function definition\n2. Looping and list operations\n3. Fibonacci sequence calculation",
+        "id_prof": 2,
+        "id": 3
+    },
+    {
+        "code_prof": "def divide(a, b):\n    if b = 0:\n        return 'Error: Division by zero'\n    return a / b\n\nprint(divide(10, 0))",
+        "concepts": "1. Conditional statement errors\n2. Intentional error identification: using assignment instead of comparison\n3. Proper operator usage in conditions",
+        "id_prof": 2,
+        "id": 4
+    }
+]

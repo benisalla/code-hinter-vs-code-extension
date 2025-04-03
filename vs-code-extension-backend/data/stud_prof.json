@@ -1,0 +1,62 @@
+[
+    {
+        "student_id": 1,
+        "prof_id": 1,
+        "notes": "Initial assignment",
+        "id": 1
+    },
+    {
+        "student_id": 2,
+        "prof_id": 1,
+        "notes": "Initial assignment",
+        "id": 2
+    },
+    {
+        "student_id": 3,
+        "prof_id": 1,
+        "notes": "Initial assignment",
+        "id": 3
+    },
+    {
+        "student_id": 4,
+        "prof_id": 1,
+        "notes": "Initial assignment",
+        "id": 4
+    },
+    {
+        "student_id": 5,
+        "prof_id": 1,
+        "notes": "Initial assignment",
+        "id": 5
+    },
+    {
+        "student_id": 6,
+        "prof_id": 2,
+        "notes": "Initial assignment",
+        "id": 6
+    },
+    {
+        "student_id": 7,
+        "prof_id": 2,
+        "notes": "Initial assignment",
+        "id": 7
+    },
+    {
+        "student_id": 8,
+        "prof_id": 2,
+        "notes": "Initial assignment",
+        "id": 8
+    },
+    {
+        "student_id": 9,
+        "prof_id": 2,
+        "notes": "Initial assignment",
+        "id": 9
+    },
+    {
+        "student_id": 10,
+        "prof_id": 2,
+        "notes": "Initial assignment",
+        "id": 10
+    }
+]

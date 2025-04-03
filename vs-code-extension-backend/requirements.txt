@@ -1,0 +1,11 @@
+Flask
+flask-cors
+requests
+python-dotenv
+torch 
+torchvision 
+torchaudio
+transformers
+flask_socketio
+websocket-client
+eventlet

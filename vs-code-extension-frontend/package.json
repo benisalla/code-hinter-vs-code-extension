@@ -1,0 +1,76 @@
+{
+  "name": "code-hinter",
+  "displayName": "code_hinter",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "icon": "images/logo.png",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:python"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ch.testapi",
+        "title": "Test api's"
+      },
+      {
+        "command": "ch.login",
+        "title": "Login"
+      },
+      {
+        "command": "ch.logout",
+        "title": "Logout"
+      },
+      {
+        "command": "ch.evaluate",
+        "title": "Evaluate Code"
+      },
+      {
+        "command": "ch.submit",
+        "title": "submit Code for comparison"
+      },
+      {
+        "command": "ch.chexe",
+        "title": "change exercise"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/sinon": "^17.0.4",
+    "@types/vscode": "^1.98.0",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.21.0",
+    "sinon": "^19.0.4",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "vscode-test": "^1.6.1",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.8.1"
+  }
+}

@@ -1,0 +1,182 @@
+[
+    {
+        "student_id": 1,
+        "exercise_id": 1,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": "def test():\n    print(\"hello world !\")\n    print(\"hello one\")\n    a = 1\n    b = 2\n    return\n",
+        "id": 1
+    },
+    {
+        "student_id": 2,
+        "exercise_id": 1,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 2
+    },
+    {
+        "student_id": 3,
+        "exercise_id": 1,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 3
+    },
+    {
+        "student_id": 4,
+        "exercise_id": 1,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 4
+    },
+    {
+        "student_id": 5,
+        "exercise_id": 1,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 5
+    },
+    {
+        "student_id": 1,
+        "exercise_id": 2,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": "def test():\n    print(\"hello world !\")\n    print(\"hello one\")\n    a = 1\n    b = 2\n    c = a + b\n    print(c)",
+        "id": 6
+    },
+    {
+        "student_id": 2,
+        "exercise_id": 2,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 7
+    },
+    {
+        "student_id": 3,
+        "exercise_id": 2,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 8
+    },
+    {
+        "student_id": 4,
+        "exercise_id": 2,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 9
+    },
+    {
+        "student_id": 5,
+        "exercise_id": 2,
+        "prof_id": 1,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 10
+    },
+    {
+        "student_id": 6,
+        "exercise_id": 3,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 11
+    },
+    {
+        "student_id": 7,
+        "exercise_id": 3,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 12
+    },
+    {
+        "student_id": 8,
+        "exercise_id": 3,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 13
+    },
+    {
+        "student_id": 9,
+        "exercise_id": 3,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 14
+    },
+    {
+        "student_id": 10,
+        "exercise_id": 3,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 15
+    },
+    {
+        "student_id": 6,
+        "exercise_id": 4,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 16
+    },
+    {
+        "student_id": 7,
+        "exercise_id": 4,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 17
+    },
+    {
+        "student_id": 8,
+        "exercise_id": 4,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 18
+    },
+    {
+        "student_id": 9,
+        "exercise_id": 4,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 19
+    },
+    {
+        "student_id": 10,
+        "exercise_id": 4,
+        "prof_id": 2,
+        "score": 0,
+        "status": "in_progress",
+        "code_submitted": null,
+        "id": 20
+    }
+]

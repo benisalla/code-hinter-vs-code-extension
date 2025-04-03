@@ -1,0 +1,41 @@
+# Virtual environment
+venv/
+.env
+.env.*
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VS Code settings and extensions
+.vscode/
+
+# Logs and runtime files
+*.log
+output.log
+
+# Large data files
+*.h5
+*.pt
+*.pth
+*.weights
+*.ckpt
+*.csv
+*.jsonl
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Local configuration or secrets
+config.json
+credentials.json
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints
+
+# IDE specific files
+.idea/
+*.swp
