@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { evaluateCode } from '../../api/flaskApi';
+import { evaluateCode, EvaluationResult } from '../../api/flaskApi';
+import { page, escapeHtml } from '../tutor/webview';
 
 export function registerEvaluateProvider(
   context: vscode.ExtensionContext,
@@ -25,18 +26,22 @@ export function registerEvaluateProvider(
 
     try {
       // Call the evaluateCode API with the proper parameters
-      const evaluation_text = await evaluateCode(exerciseId, email, code);
+      const evaluation = await vscode.window.withProgress(
+        { location: vscode.ProgressLocation.Window, title: 'Code Hinter: checking your code against the concepts…' },
+        () => evaluateCode(exerciseId, email, code));
 
       // Create and display a new webview panel for the result
       const panel = vscode.window.createWebviewPanel(
         'evaluationResult',
         'Code Evaluation Result',
-        vscode.ViewColumn.One,
-        {}
+        vscode.ViewColumn.Beside,
+        { enableScripts: true }
       );
-
-      // Set the HTML content for the panel
-      panel.webview.html = getWebviewContent(evaluation_text);
+      panel.webview.html = page(panel.webview, 'Code Evaluation Result', getEvaluationHtml(evaluation));
+      panel.webview.onDidReceiveMessage((msg: { cmd: string; arg?: string }) => {
+        if (msg.cmd === 'hint') { vscode.commands.executeCommand('ch.hint'); }
+        if (msg.cmd === 'explain') { vscode.commands.executeCommand('ch.explain', msg.arg); }
+      }, null, context.subscriptions);
     } catch (error) {
       vscode.window.showErrorMessage(`Error evaluating code: ${error}`);
     }
@@ -44,52 +49,18 @@ export function registerEvaluateProvider(
   context.subscriptions.push(disposable);
 }
 
-function getWebviewContent(text: any): string {
+function getEvaluationHtml(evaluation: EvaluationResult): string {
+  const rows = (evaluation.concepts || []).map(c => `<tr>
+      <td class="${c.satisfied ? 'ok' : 'ko'}">${c.satisfied ? '✔' : '✘'}</td>
+      <td>${escapeHtml(c.concept)}</td>
+      <td>${c.satisfied ? '' : `<button class="secondary" data-cmd="explain" data-arg="${escapeHtml(c.concept)}">Explain</button>`}</td>
+    </tr>`).join('');
+  const missing = (evaluation.concepts || []).filter(c => !c.satisfied).length;
   return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <title>Code Evaluation Result</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          line-height: 1.6;
-          background-color: #f2f2f2;
-          color: #333;
-        }
-        .container {
-          background-color: #ffffff;
-          padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-          max-width: 800px;
-          margin: 40px auto;
-        }
-        h1 {
-          margin-top: 0;
-          text-align: center;
-          color: #444;
-        }
-        pre {
-          background-color: #e8e8e8;
-          color: #333;
-          padding: 15px;
-          border-radius: 4px;
-          overflow-x: auto;
-          white-space: pre-wrap;
-          word-wrap: break-word;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <h1>Evaluation Result</h1>
-        <pre>${text}</pre>
-      </div>
-    </body>
-    </html>
-  `;
+    <h1>Evaluation Result</h1>
+    ${rows ? `<table>${rows}</table>` : ''}
+    <h2>Details</h2>
+    <pre>${escapeHtml(evaluation.response)}</pre>
+    ${missing ? `<p>${missing} concept(s) are not there yet. Want a nudge in the right direction?</p>
+      <button data-cmd="hint">Give me a hint</button>` : '<p class="ok">Every concept is satisfied. Nice work!</p>'}`;
 }

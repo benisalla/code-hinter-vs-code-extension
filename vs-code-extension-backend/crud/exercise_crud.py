@@ -1,7 +1,8 @@
 import json
 import os
+from utils.storage import data_path
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), '..', 'data', 'exercises.json')
+DATA_FILE = data_path('exercises.json')
 
 def load_exercises():
     try:

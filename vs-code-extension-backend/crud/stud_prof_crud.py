@@ -1,7 +1,8 @@
 import json
 import os
+from utils.storage import data_path
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), '..', 'data', 'stud_prof.json')
+DATA_FILE = data_path('stud_prof.json')
 
 def load_stud_prof():
     try:

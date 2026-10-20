@@ -1,71 +1,34 @@
-# code-hinter README
+# Code Hinter: VS Code extension
 
-This is the README for your extension "code-hinter". After writing up a brief description, we recommend including the following sections.
+An AI tutor for students. It gives **hints, never solutions**, adapts to the student's level and
+learning style, and tests them on every concept the professor teaches.
 
-## Features
+See the [main README](../README.md) for the full picture and screenshots.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Commands (Command Palette → "Code Hinter")
 
-For example if there is an image subfolder under your extension project workspace:
+| Command | Shortcut |
+|---|---|
+| Give me a hint | `Ctrl+Alt+H` (also 💡 in the status bar, editor title and right-click menu) |
+| Ask the tutor a question | `Ctrl+Alt+Q` |
+| Explain a concept | |
+| Test me | `Ctrl+Alt+T` |
+| My learning progress | |
+| Set up my learning profile | |
+| Ask my professor | |
+| Evaluate Code · submit Code for comparison · Login · Logout · change exercise · Test api's | |
 
-\!\[feature X\]\(images/feature-x.png\)
+## Settings
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- `codeHinter.serverUrl`: backend base URL (default `http://156.18.90.98:5000/api`; for a local
+  backend use `http://127.0.0.1:5000/api`).
 
-## Requirements
+## Development
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+```sh
+npm install
+npm run compile        # webpack bundle in dist/, then F5 to run the extension
+npm run lint
+npm run test:unit      # API client + webview rendering, plain Node, no VS Code needed
+npm test               # integration test inside VS Code (needs a display)
+```

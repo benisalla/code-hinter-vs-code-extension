@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { refreshStatusBar } from '../tutor/statusBar';
 
 export function registerLogoutProvider(context: vscode.ExtensionContext) {
     const disposable = vscode.commands.registerCommand('ch.logout', async () => {
@@ -8,6 +9,7 @@ export function registerLogoutProvider(context: vscode.ExtensionContext) {
         await context.globalState.update('exerciseId', undefined);
         await context.globalState.update('hasRunBefore', undefined);
 
+        refreshStatusBar(context);
         vscode.window.showInformationMessage('You have been logged out successfully.');
     });
 

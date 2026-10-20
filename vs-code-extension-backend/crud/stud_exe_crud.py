@@ -1,9 +1,10 @@
 import json
 import os
+from utils.storage import data_path
 import crud.student_crud as student_crud
 import crud.exercise_crud as exercise_crud
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), '..', 'data', 'stud_exe.json')
+DATA_FILE = data_path('stud_exe.json')
 
 def load_stud_exe():
     try:

@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { checkExerciseExistence } from '../../api/flaskApi';
+import { refreshStatusBar } from '../tutor/statusBar';
 
 export function registerChangeExerciseProvider(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand('ch.chexe', async () => {
@@ -33,6 +34,7 @@ async function handleChangeExercise(context: vscode.ExtensionContext) {
 
     // If the exercise exists, update the global state with the new exercise ID
     await context.globalState.update('exerciseId', newExerciseId);
+    refreshStatusBar(context);
     vscode.window.showInformationMessage(`Exercise ID updated successfully to ${newExerciseId}.`);
     
   } catch (error: any) {

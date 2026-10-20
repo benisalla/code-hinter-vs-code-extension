@@ -39,3 +39,11 @@ credentials.json
 # IDE specific files
 .idea/
 *.swp
+
+# Local venv and runtime tutor state (learner profiles, quizzes, help requests)
+.venv/
+data/learners.json
+data/quizzes.json
+data/help_requests.json
+examples/output/
+.pytest_cache/

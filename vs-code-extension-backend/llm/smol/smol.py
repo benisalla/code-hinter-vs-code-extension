@@ -2,6 +2,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 from llm.constant import (
     MODEL_CHECKPOINT, 
+    TORCH_DTYPE,
     EVALUATE_CLIENT_PROMPT, 
     EVALUATE_SYS_PROMPT, 
     SYS_COMPARE_PROMPT, 
@@ -15,14 +16,29 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class SmolLM:
     def __init__(self):
         self.tokenizer = AutoTokenizer.from_pretrained(MODEL_CHECKPOINT)
-        self.model = AutoModelForCausalLM.from_pretrained(MODEL_CHECKPOINT).to(DEVICE)
+        self.model = AutoModelForCausalLM.from_pretrained(MODEL_CHECKPOINT, torch_dtype=getattr(torch, TORCH_DTYPE)).to(DEVICE)
 
     def apply_chat_template(self, sys_prompt, user_prompt):
         messages = [
             {"role": "system", "content": sys_prompt},
             {"role": "user", "content": user_prompt}
         ]
-        return self.tokenizer.apply_chat_template(messages, tokenize=False)
+        return self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+
+    def chat(self, sys_prompt, user_prompt, temperature=0.7, max_new_tokens=300, top_p=0.9, do_sample=True):
+        """Generic system+user turn; returns only the newly generated text."""
+        in_text = self.apply_chat_template(sys_prompt, user_prompt)
+        inputs = self.tokenizer.encode(in_text, return_tensors="pt").to(DEVICE)
+        with torch.no_grad():
+            outputs = self.model.generate(
+                inputs,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                do_sample=do_sample,
+                pad_token_id=self.tokenizer.eos_token_id,
+            )
+        return self.tokenizer.decode(outputs[0][inputs.shape[1]:], skip_special_tokens=True).strip()
 
     def evaluate_code(self, concepts, code, temperature=0.9, max_new_tokens=200, top_p=0.9, do_sample=True):
         # Prepare the user prompt
@@ -114,7 +130,7 @@ class SmolLM:
         # Create a prompt that instructs the model to complete the code snippet.
         user_prompt = f"Complete the following code snippet:\n\n{code}\n"
         # Prepare the input text using the chat template.
-        in_text = self.apply_chat_template(SYS_PROMPT, user_prompt)
+        in_text = self.apply_chat_template(CODE_COMPLETION_SYS_PROMPT, user_prompt)
         inputs = self.tokenizer.encode(in_text, return_tensors="pt").to(DEVICE)
         
         # Initialize a streamer that will yield new text chunks.

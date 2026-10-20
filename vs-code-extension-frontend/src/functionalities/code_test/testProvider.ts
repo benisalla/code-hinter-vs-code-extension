@@ -6,12 +6,11 @@ export function registerTestProvider(context: vscode.ExtensionContext) {
     async () => {
       // Retrieve stored information
       const email = context.globalState.get<string>('userEmail');
-      const password = context.globalState.get<string>('userPassword');
       const exerciseId = context.globalState.get<string>('exerciseId');
 
-      if (email || password || exerciseId) {
+      if (email || exerciseId) {
         vscode.window.showInformationMessage(
-          `Email: ${email}\nPassword: ${password}\nExercise ID: ${exerciseId}`
+          `Email: ${email}\nExercise ID: ${exerciseId}`
         );
       } else {
         vscode.window.showInformationMessage(

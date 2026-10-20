@@ -1,8 +1,4 @@
-import torch
-from llm.smol.smol import SmolLM
 from llm.smol.smol_instance import smol
-
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def evaluate_code(concepts, st_code, temperature=1.0, max_new_tokens=500, top_p=0.9, do_sample=True):
     try:

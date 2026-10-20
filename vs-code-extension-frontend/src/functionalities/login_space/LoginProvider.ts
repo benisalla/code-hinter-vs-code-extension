@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
-import { login } from '../../api/flaskApi';
+import { login, getProfile } from '../../api/flaskApi';
+import { setUpProfile } from '../tutor/profileProvider';
+import { refreshStatusBar } from '../tutor/statusBar';
 
 export function registerLoginProvider(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand('ch.login', async () => {
@@ -46,13 +48,19 @@ async function handleLogin(context: vscode.ExtensionContext) {
     const data = await login(email, password, exerciseId);
     if (data && data.user) {
       await context.globalState.update('userEmail', email);
-      await context.globalState.update('userPassword', password);
       await context.globalState.update('exerciseId', exerciseId);
       await context.globalState.update('hasRunBefore', true);
 
+      refreshStatusBar(context);
       vscode.window.showInformationMessage(
         `Login successful. Welcome, ${data.user.name || email}!`
       );
+
+      // First time with the tutor: ask how this student learns.
+      const profile = await getProfile(email).catch(() => undefined);
+      if (profile && !profile.onboarded) {
+        await setUpProfile(context, true);
+      }
     } else {
       vscode.window.showErrorMessage('Login failed: No user data received.');
     }
