@@ -1,0 +1,190 @@
+{
+  "name": "code-hinter",
+  "displayName": "Code Hinter",
+  "description": "An AI tutor inside VS Code: hints instead of solutions, adapted to each student's level and learning style, with 'Test me' quizzes on every concept the professor teaches.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "icon": "images/logo.png",
+  "categories": [
+    "Education",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:python",
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ch.testapi",
+        "title": "Test api's",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.login",
+        "title": "Login",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.logout",
+        "title": "Logout",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.evaluate",
+        "title": "Evaluate Code",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.submit",
+        "title": "submit Code for comparison",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.chexe",
+        "title": "change exercise",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.hint",
+        "title": "Give me a hint",
+        "category": "Code Hinter",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "ch.askTutor",
+        "title": "Ask the tutor a question",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.explain",
+        "title": "Explain a concept",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.testMe",
+        "title": "Test me",
+        "category": "Code Hinter",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "ch.progress",
+        "title": "My learning progress",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.profile",
+        "title": "Set up my learning profile",
+        "category": "Code Hinter"
+      },
+      {
+        "command": "ch.askProfessor",
+        "title": "Ask my professor",
+        "category": "Code Hinter"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ch.hint",
+        "key": "ctrl+alt+h",
+        "mac": "cmd+alt+h",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "ch.askTutor",
+        "key": "ctrl+alt+q",
+        "mac": "cmd+alt+q",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "ch.testMe",
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "ch.hint",
+          "when": "editorLangId == python",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ch.hint",
+          "when": "editorLangId == python",
+          "group": "codeHinter@1"
+        },
+        {
+          "command": "ch.askTutor",
+          "when": "editorLangId == python",
+          "group": "codeHinter@2"
+        },
+        {
+          "command": "ch.explain",
+          "when": "editorLangId == python",
+          "group": "codeHinter@3"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Code Hinter",
+      "properties": {
+        "codeHinter.serverUrl": {
+          "type": "string",
+          "default": "http://156.18.90.98:5000/api",
+          "description": "Base URL of the Code Hinter backend API (for a local backend: http://127.0.0.1:5000/api)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "test:unit": "npm run compile-tests && mocha --ui tdd \"out/test/unit/**/*.test.js\""
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/sinon": "^17.0.4",
+    "@types/vscode": "^1.98.0",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.21.0",
+    "sinon": "^19.0.4",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "mocha": "^10.8.2"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.8.1"
+  },
+  "keywords": [
+    "education",
+    "tutor",
+    "hints",
+    "python",
+    "quiz",
+    "learning"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benisalla/code-hinter-vs-code-extension"
+  },
+  "publisher": "benisalla"
+}

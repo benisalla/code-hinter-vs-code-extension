@@ -104,7 +104,7 @@ tutor's estimates with the hidden truth:
 
 ```sh
 git clone https://github.com/benisalla/code-hinter-vs-code-extension.git
-cd code-hinter-vs-code-extension/vs-code-extension-backend
+cd code-hinter-vs-code-extension/backend
 python3 -m venv venv && source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
@@ -133,7 +133,7 @@ curl -X POST http://127.0.0.1:5000/api/tutor/hint -H "Content-Type: application/
 ### Extension
 
 ```sh
-cd vs-code-extension-frontend
+cd extension
 npm install
 npm run compile          # then F5 in VS Code to launch the Extension Development Host
 ```
@@ -165,23 +165,23 @@ Runnable scripts with no server and no LLM. Each one works on a temporary copy o
 
 | Script | Shows |
 |---|---|
-| [`01_learner_profile.py`](vs-code-extension-backend/examples/01_learner_profile.py) | onboarding: level and learning style |
-| [`02_hint_ladder.py`](vs-code-extension-backend/examples/02_hint_ladder.py) | the 4-step ladder on `if b = 0:`, in two styles, up to "ask your professor" |
-| [`03_explain_concept.py`](vs-code-extension-backend/examples/03_explain_concept.py) | one concept explained four ways, and at advanced level |
-| [`04_test_me.py`](vs-code-extension-backend/examples/04_test_me.py) | a quiz, its grading, mastery changes and re-teaching |
-| [`05_progress_and_professor.py`](vs-code-extension-backend/examples/05_progress_and_professor.py) | progress, readiness, help request, class insights |
-| [`06_simulated_students.py`](vs-code-extension-backend/examples/06_simulated_students.py) | the learner-model tracking metrics above |
+| [`01_learner_profile.py`](backend/examples/01_learner_profile.py) | onboarding: level and learning style |
+| [`02_hint_ladder.py`](backend/examples/02_hint_ladder.py) | the 4-step ladder on `if b = 0:`, in two styles, up to "ask your professor" |
+| [`03_explain_concept.py`](backend/examples/03_explain_concept.py) | one concept explained four ways, and at advanced level |
+| [`04_test_me.py`](backend/examples/04_test_me.py) | a quiz, its grading, mastery changes and re-teaching |
+| [`05_progress_and_professor.py`](backend/examples/05_progress_and_professor.py) | progress, readiness, help request, class insights |
+| [`06_simulated_students.py`](backend/examples/06_simulated_students.py) | the learner-model tracking metrics above |
 
 ```sh
-cd vs-code-extension-backend
+cd backend
 python examples/02_hint_ladder.py
 ```
 
 ## Tests
 
 ```sh
-cd vs-code-extension-backend && pip install pytest && python -m pytest -q tests   # 37 tests, offline
-cd vs-code-extension-frontend && npm run test:unit                              # API client + webview rendering
+cd backend && pip install pytest && python -m pytest -q tests   # 37 tests, offline
+cd extension && npm run test:unit                              # API client + webview rendering
 ```
 
 The backend tests check, among other things, that no hint at any level and in any style contains
@@ -191,18 +191,41 @@ fix gets redacted, and that every concept of the exercise appears in `Test me`.
 ## Project layout
 
 ```
-vs-code-extension-backend/
-  main.py                 Flask app (--port, --offline)
-  apis/                   blueprints (tutor_api.py = the tutor)
-  crud/                   JSON-file persistence (learner_crud.py = profiles, quizzes, help requests)
-  tutor/                  knowledge bank, code analysis, guardrails, learner model, hints, quizzes, insights
-  llm/                    SmolLM wrapper (lazy-loaded), prompts, backend switch
-  examples/  tests/  data/
-vs-code-extension-frontend/
-  src/functionalities/tutor/   hint / quiz / progress / profile panels, status bar
-  src/api/flaskApi.ts          typed API client
-docs/                          design notes and screenshots
+code-hinter-vs-code-extension/
+├── backend/                     Flask API (Python)
+│   ├── main.py                  entry point: python main.py [--port 5000] [--offline]
+│   ├── apis/                    HTTP blueprints (tutor_api.py = the tutor, smol_api.py = evaluate/submit)
+│   ├── tutor/                   the tutor itself
+│   │   ├── knowledge.py         curated teaching content and quiz bank
+│   │   ├── concepts.py          professor's concepts -> topics
+│   │   ├── code_analysis.py     static checks: which line, which concept
+│   │   ├── guardrails.py        no solution can leave the server
+│   │   ├── learner.py           per-concept mastery and effective level
+│   │   ├── teaching.py          hint ladder and explanations
+│   │   ├── quiz.py              Test me: build and grade
+│   │   └── insights.py          progress, readiness, class insights
+│   ├── llm/                     SmolLM wrapper (lazy), prompts, backend switch
+│   ├── crud/                    JSON-file persistence
+│   ├── data/                    seed professors, students, exercises
+│   ├── examples/                01-06 runnable scripts
+│   └── tests/                   pytest suite (offline)
+├── extension/                   VS Code extension (TypeScript)
+│   ├── package.json             commands, shortcuts, menus, settings
+│   └── src/
+│       ├── extension.ts         registers everything
+│       ├── api/flaskApi.ts      typed backend client
+│       ├── commands/auth/       login, logout, change exercise
+│       ├── commands/grading/    evaluate, final submission (with readiness check)
+│       ├── commands/tutor/      hint, Test me, progress, learning profile
+│       ├── commands/healthCheck.ts
+│       ├── ui/                  webview rendering, status bar
+│       └── test/                unit + integration tests
+└── docs/                        design notes, screenshots, data model
 ```
+
+The data model (professors, students, exercises and their associations) is in
+[docs/images/data-model.png](docs/images/data-model.png); the tutor adds learner profiles,
+quizzes and help requests on top of it.
 
 ## Limitations
 
